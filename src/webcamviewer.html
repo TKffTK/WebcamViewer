@@ -5,22 +5,35 @@
     <title>WebCam viewer</title>
 </head>
 <body>
-    <video id="video" autoplay></video>
+    <video id="video" autoplay playsinline></video>
 </body>
 
 <script type="text/javascript">
     var video = document.getElementById('video');
 
     var mediaConfig =  {
-    video: true,
-    audio: true
+        video: true,
+        audio: true,
+
     };
+    var constraints = {
+        width: { min: 640, ideal: 1920, max: 1920 },
+        height: { min: 400, ideal: 1080 },
+        aspectRatio: 16 / 9
+    }
+
+    console.log(navigator.mediaDevices.getSupportedConstraints());
+
+
+
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
             video.srcObject = stream;
+            stream.getVideoTracks()[0].applyConstraints(constraints);
             video.play();
         });
+
     }
 
 </script>
@@ -30,8 +43,8 @@
  top: 0;
  left: 0;
  object-fit: contain;
-     height: 100%;
-     width: 100%;
+     max-height: 100%;
+     max-width: 100%;
  }
 </style>
 </html>
