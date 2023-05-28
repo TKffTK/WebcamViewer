@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebCam viewer</title>
+</head>
+<body>
+    <video id="video" width="640" height="480" autoplay></video>
+</body>
+
+<script type="text/javascript">
+    var video = document.getElementById('video');
+
+    var mediaConfig =  { video: true };
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        });
+    }
+
+</script>
+</html>
