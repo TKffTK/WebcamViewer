@@ -5,20 +5,33 @@
     <title>WebCam viewer</title>
 </head>
 <body>
-    <video id="video" width="640" height="480" autoplay></video>
+    <video id="video" autoplay></video>
 </body>
 
 <script type="text/javascript">
     var video = document.getElementById('video');
 
-    var mediaConfig =  { video: true };
+    var mediaConfig =  {
+    video: true,
+    audio: true
+    };
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
-            video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
             video.play();
         });
     }
 
 </script>
+<style>
+ video {
+ position: fixed;
+ top: 0;
+ left: 0;
+ object-fit: contain;
+     height: 100%;
+     width: 100%;
+ }
+</style>
 </html>
